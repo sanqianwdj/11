@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title><style type="text/css">
+		body{background: #000;
+      margin: 0;}
+    </style>
+</head>
+<body><canvas id="canvas" width="1520" height="718">您的浏览器不支持Canvas。</canvas>
+	<script type="text/javascript">
+	
+var canvas = document.getElementById('canvas');
+ctx = canvas.getContext('2d');
+canvas.width=document.documentElement.scrollWidth||document.body.scrollWidth;
+canvas.height=document.documentElement.scrollHeight||document.body.scrollHeight;
+ParticleArray = [];
+setInterval(draw,30);
+
+var hue=120;
+function draw() {
+  var Particle = {
+    x: mx,
+    y: my,
+    angle: random(0, Math.PI * 2),
+    speed: random(1, 10),
+    size:10,
+    hue :random
+    ( hue - 40, hue + 40 ),
+    brightness : random( 50, 80 ),
+    gravity:1,
+    friction : 0.95
+    
+  }
+  ParticleArray.push(Particle);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (var i = 0; i < ParticleArray.length; i++) {
+    Particle = ParticleArray[i];
+
+    ctx.fillStyle = 'hsl(' + Particle.hue + ', 100%, ' + Particle.brightness + '%)';
+    ctx.fillRect(Particle.x, Particle.y, Particle.size, Particle.size);
+    Particle.speed*=Particle.friction;
+    Particle.x += Math.cos(Particle.angle) * Particle.speed;
+    Particle.y += Math.sin(Particle.angle) * Particle.speed+Particle.gravity;
+    Particle.size*=0.99;
+  }
+  hue+=3;
+}
+
+
+function random(min, max) {
+  return Math.random()* (max - min) + min;
+}
+canvas.addEventListener( 'mousemove', function( e ) {
+	mx = e.pageX - canvas.offsetLeft;
+	my = e.pageY - canvas.offsetTop;
+});
+
+
+</script>
+</body>
+</html>
