@@ -18,6 +18,9 @@ ParticleArray = [];
 setInterval(draw,30);
 
 var hue=120;
+var mx=null;
+var my=null;
+
 function draw() {
   var Particle = {
     x: mx,
@@ -38,8 +41,14 @@ function draw() {
   for (var i = 0; i < ParticleArray.length; i++) {
     Particle = ParticleArray[i];
 
-    ctx.fillStyle = 'hsl(' + Particle.hue + ', 100%, ' + Particle.brightness + '%)';
-    ctx.fillRect(Particle.x, Particle.y, Particle.size, Particle.size);
+    
+   // ctx.fillRect(Particle.x, Particle.y, Particle.size, Particle.size);
+
+           ctx.beginPath();
+            ctx.arc(Particle.x, Particle.y, Particle.size ,0 ,Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = 'hsl(' + Particle.hue + ', 100%, ' + Particle.brightness + '%)';
+           ctx.fill();
     Particle.speed*=Particle.friction;
     Particle.x += Math.cos(Particle.angle) * Particle.speed;
     Particle.y += Math.sin(Particle.angle) * Particle.speed+Particle.gravity;
