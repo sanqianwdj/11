@@ -95,7 +95,7 @@ init()
         }
         }
         
-        window.requestAnimationFrame(loop);
+        requestAnimationFrame(loop);
     }
   function winResize(){
         clearTimeout(tid);
